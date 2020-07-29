@@ -2,15 +2,19 @@ import styled from 'styled-components';
 
 
 export const FooterBase = styled.footer`
-  background: var(--black);
-  border-top: 2px solid var(--primary);
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 32px;
-  padding-bottom: 32px;
-  color: var(--white);
-  text-align: center;
-  @media (max-width: 800px) {
-    margin-bottom: 50px;
-  }
+	background-color: var(--black);
+	color: var(--white);
+
+	border-top: 2px solid red;
+	
+	padding: 32px 16px;
+
+	text-align: center;
+
+
+	@media(max-width: 800px){
+		margin-bottom: 50px;
+
+	}
+
 `;
