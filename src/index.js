@@ -6,9 +6,7 @@ import './index.css';
 import Home from './Pages/Home';
 import CadastroVideo from './Pages/Register/Videos';
 import CadastroCategorias from './Pages/Register/Categories';
-
-
-const Error404 = () => (<div><h1>Error 404</h1><h2>Not Found.</h2></div>);
+import LoadGame from './Pages/Error';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -19,7 +17,7 @@ ReactDOM.render(
 
 			<Route path="/cadastro/categoria" component={CadastroCategorias}/>
 
-			<Route  component={Error404} />
+			<Route component={LoadGame}/>
 
 		</Switch>
 

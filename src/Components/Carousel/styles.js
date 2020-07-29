@@ -56,19 +56,3 @@ export const ExtraLink = styled.a`
 
 	}
 `;
-
-export const VideoCardList = styled.ul`
-	list-style: none;
-
-	padding-left: 0;
-	margin: 0;
-
-	display: flex;
-	overflow-x: auto;
-
-	li {
-		margin-right: 16px;
-		
-	}
-
-`;
