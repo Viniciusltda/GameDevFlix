@@ -7,6 +7,7 @@ import Home from './Pages/Home';
 import CadastroVideo from './Pages/Register/Videos';
 import CadastroCategorias from './Pages/Register/Categories';
 import LoadGame from './Pages/Error';
+import CadastroPokemon from './Pages/Register/Pokemon';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -16,6 +17,8 @@ ReactDOM.render(
 			<Route path='/' component={Home} exact/>
 
 			<Route path="/cadastro/categoria" component={CadastroCategorias}/>
+			
+			<Route path="/cadastro/pokemon" component={CadastroPokemon}/>
 
 			<Route component={LoadGame}/>
 

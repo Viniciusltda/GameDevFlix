@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 
 import DefaultPage from '../../../Components/Layout';
 import FormField from '../../../Components/Form';
-import {FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle, LinkWrapper} from './styles.js';
+import {FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle} from './styles.js';
 
-function CadastroCategorias(){
+function CadastroPokemon(){
 	const initialValues = {
-		name: '',
-		description: '',
-		color: '',
+		name: 'Torterra',
+		description: 'Pokémon Massa esse.',
+		type: 'Grama',
 	};
 
 	const [values, setValues] = useState(initialValues);
@@ -30,7 +30,7 @@ function CadastroCategorias(){
 	return(
 		<DefaultPage>
 			<TitleWrapper>
-				<h1>Cadastro da Categoria: {values.name}</h1>
+				<h1>Cadastro do Pokémon: {values.name}</h1>
 
 			</TitleWrapper>
 
@@ -49,29 +49,19 @@ function CadastroCategorias(){
 				}}>
 
 					<FormFieldWrapper>
-						<FormField label="Nome da Categoria" type="text" name="name" onChange={OnChangeHandler} />
+						<FormField label="Nome do Pokémon" value={values.name} type="text" name="name" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
 
 					<FormFieldWrapper>
-						{/* <div>
-							<label>
-								Descrição:
-								
-								<textarea type="text" name="description" onChange={OnChangeHandler} />
-
-							</label>
-
-						</div> */}
-
-						<FormField label="Descrição da Categoria" type="text" name="description" onChange={OnChangeHandler}/>
+						<FormField label="Descrição do Pokémon" value={values.description} type="text" name="description" onChange={OnChangeHandler}/>
 
 					</FormFieldWrapper>
 
 
 
 					<FormFieldWrapper>
-						<FormField label="Cor da Categoria" type="color" name="color" onChange={OnChangeHandler} />
+						<FormField label="Tipo do Pokémon" value={values.type} type="text" name="type" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
 
@@ -96,20 +86,14 @@ function CadastroCategorias(){
 
 			</FormWrapper>
 
-			<LinkWrapper>
-				<LinkStyle as={Link} to="/">
-					Voltar à Home
-				</LinkStyle>
-
-				<LinkStyle as={Link} to="/cadastro/pokemon">
-					Cadastrar Pokémon's
-				</LinkStyle>
-
-			</LinkWrapper>
+			<LinkStyle as={Link} to="/">
+				Voltar à Home.
+			</LinkStyle>
+			
 
 
 		</DefaultPage>
 	);
 }
 
-export default CadastroCategorias;
+export default CadastroPokemon;

@@ -9,11 +9,10 @@ const Main = styled.main`
 
   flex: 1;
 
-  padding-top: 50px;
+  padding-top: 60px;
   padding-left: 5%;
   padding-right: 5%;
-  margin-top: 94px;
-  
+
 `;
 
 
