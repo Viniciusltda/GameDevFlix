@@ -30,7 +30,9 @@ function CadastroCategorias() {
 	}
 
 	useEffect(() => {
-		const url = 'http://localhost:8080/categorias';
+		const url = window.location.hostname.includes('localhost')
+			? 'http://localhost:8080/categorias'
+			: 'https://gamedevflix.herokuapp.com/categorias';
 
 		fetch(url).then(async (response) => {
 			const resp = await response.json();
