@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import DefaultPage from '../../../Components/Layout';
 import FormField from '../../../Components/Form';
-import {FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle, LinkWrapper} from './styles.js';
+import {
+	FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle, LinkWrapper,
+} from './styles';
 
-function CadastroCategorias(){
+function CadastroCategorias() {
 	const initialValues = {
 		name: '',
 		description: '',
@@ -15,38 +17,52 @@ function CadastroCategorias(){
 	const [values, setValues] = useState(initialValues);
 	const [category, setCategory] = useState([]);
 
-	function SetValue(key, value){
+	function SetValue(key, value) {
 		setValues({
 			...values,
-			[key]: value
+			[key]: value,
+
 		});
 	}
 
 	function OnChangeHandler(e) {
 		SetValue(e.target.getAttribute('name'), e.target.value);
-
 	}
 
-	return(
+	useEffect(() => {
+		const url = 'http://localhost:8080/categorias';
+
+		fetch(url).then(async (response) => {
+			const resp = await response.json();
+
+			setCategory([
+				...resp,
+
+			]);
+		});
+	});
+
+	return (
 		<DefaultPage>
 			<TitleWrapper>
-				<h1>Cadastro da Categoria: {values.name}</h1>
+				<h1>
+					Cadastro da Categoria:
+					{values.name}
+
+				</h1>
 
 			</TitleWrapper>
 
 			<FormWrapper>
 
-				<form onSubmit={function HandleForm(e){
+				<form onSubmit={function HandleForm(e) {
 					e.preventDefault();
 
-					setCategory([
-						...category,
-						values
-					]);
+					setCategory([...category, values]);
 
-					SetValue(initialValues);
-
-				}}>
+					SetValue(initialValues); 
+				}}
+				>
 
 					<FormFieldWrapper>
 						<FormField label="Nome da Categoria" type="text" name="name" onChange={OnChangeHandler} />
@@ -54,28 +70,14 @@ function CadastroCategorias(){
 					</FormFieldWrapper>
 
 					<FormFieldWrapper>
-						{/* <div>
-							<label>
-								Descrição:
-								
-								<textarea type="text" name="description" onChange={OnChangeHandler} />
-
-							</label>
-
-						</div> */}
-
-						<FormField label="Descrição da Categoria" type="text" name="description" onChange={OnChangeHandler}/>
+						<FormField label="Descrição da Categoria" type="text" name="description" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
-
-
 
 					<FormFieldWrapper>
 						<FormField label="Cor da Categoria" type="color" name="color" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
-
-
 
 					<ButtonStyle>
 						Cadastrar
@@ -85,13 +87,12 @@ function CadastroCategorias(){
 				</form>
 
 				<ul>
-					{category.map((categories, index) => {
-						return(
-							<li key={`${categories} ${index}`}>
-								{categories.name}
-							</li>
-						);
-					})}
+					{category.map((categories) => (
+						<li key={`${categories.name}`}>
+							{categories.name}
+
+						</li>
+					))}
 				</ul>
 
 			</FormWrapper>
@@ -99,14 +100,15 @@ function CadastroCategorias(){
 			<LinkWrapper>
 				<LinkStyle as={Link} to="/">
 					Voltar à Home
+
 				</LinkStyle>
 
 				<LinkStyle as={Link} to="/cadastro/pokemon">
-					Cadastrar Pokémon's
+					Cadastrar Pokémons
+
 				</LinkStyle>
 
 			</LinkWrapper>
-
 
 		</DefaultPage>
 	);

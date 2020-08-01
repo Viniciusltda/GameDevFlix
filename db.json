@@ -1,0 +1,10 @@
+{
+    "categorias": [
+        {
+            "id": 1,
+            "name": "Unity",
+            "description": "Vídeos e tutoriais sobre a Unity",
+            "color": "#000"
+        }
+    ]
+}

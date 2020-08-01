@@ -32,6 +32,14 @@ export const ButtonStyle = Styled.button`
     height: 50px;
     width: 140px;
 
+    cursor: pointer;
+
+    transition: opacity .3s;
+
+    &:hover, &:focus {
+        opacity: .5;
+    }
+
 `;
 
 export const FormFieldWrapper = Styled.div`

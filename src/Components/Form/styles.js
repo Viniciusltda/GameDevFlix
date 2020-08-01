@@ -33,6 +33,8 @@ export const TextAreaStyle = Styled.textarea`
     font-size: 22px;
     font-weight: normal;
 
+    margin-top: 5px;
+
     &:focus{
         outline-style: solid;
         outline-color: red;

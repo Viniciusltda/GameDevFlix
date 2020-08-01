@@ -1,32 +1,55 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import {InputStyle, LabelStyle, TextAreaStyle} from './styles.js';
+import { InputStyle, LabelStyle, TextAreaStyle } from './styles';
 
-function FormField({label, value , type, name, onChange}){
-    if(label === 'Descrição da Categoria' || label === 'Descrição do Pokémon'){
-        return(
-            <>
-                <LabelStyle>
-                    {label}:
+function FormField({
+	label, value, type, name, onChange, 
+}) {
+	if (label === 'Descrição da Categoria' || label === 'Descrição do Pokémon') {
+		const fieldId = `id_${name}`;
 
-                    <TextAreaStyle type={type} value={value} name={name} onChange={onChange}/>
+		return (
+			<>
+				<LabelStyle htmlFor={fieldId}>
+					{label}
+					:
 
-                </LabelStyle>
-            </>
-        );
-    }
+					<TextAreaStyle type={type} value={value} name={name} onChange={onChange} />
 
-    return(
-        <>
-            <LabelStyle>
-                {label}:
+				</LabelStyle>
+			</>
+		);
+	}
 
-                <InputStyle type={type} value={value} name={name} onChange={onChange}/>
+	return (
+		<>
+			<LabelStyle>
+				{label}
+				:
 
-            </LabelStyle>
+				<InputStyle type={type} value={value} name={name} onChange={onChange} />
+
+			</LabelStyle>
             
-        </>
-    );
+		</>
+	);
 }
+
+FormField.defaultProps = {
+	value: '',
+	type: 'text',
+	onChange: () => {},
+	
+};
+
+FormField.propTypes = {
+	label: PropTypes.string.isRequired,
+	value: PropTypes.string,
+	type: PropTypes.string,
+	name: PropTypes.string.isRequired,
+	onChange: PropTypes.func,
+
+};
 
 export default FormField;
