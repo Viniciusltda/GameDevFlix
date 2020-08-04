@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import DefaultPage from '../../../Components/Layout';
 import FormField from '../../../Components/Form';
 import {
-	FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle, LinkWrapper,
+	FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle, LinkWrapper, SpanStyle,
 } from './styles';
+import useForm from '../../../Hooks/useForm';
+import CategoriesRepository from '../../../repositories/categories';
+import { ValidateCat } from '../../../Components/Form/validations';
 
 function CadastroCategorias() {
-	const initialValues = {
+	const { values, OnChangeHandler, ClearForm } = useForm({
 		name: '',
 		description: '',
 		color: '',
-	};
-
-	const [values, setValues] = useState(initialValues);
+		url: '',
+	});
 	const [category, setCategory] = useState([]);
+	const history = useHistory();
 
-	function SetValue(key, value) {
-		setValues({
-			...values,
-			[key]: value,
+	const [errors, setErrors] = useState({});
 
-		});
-	}
-
-	function OnChangeHandler(e) {
-		SetValue(e.target.getAttribute('name'), e.target.value);
+	function validateValues(Values) {
+		setErrors(ValidateCat(Values));
 	}
 
 	useEffect(() => {
@@ -44,6 +41,10 @@ function CadastroCategorias() {
 		});
 	}, []);
 
+	useEffect(() => {
+		validateValues(values);
+	}, [values]);
+
 	return (
 		<DefaultPage>
 			<TitleWrapper>
@@ -60,24 +61,48 @@ function CadastroCategorias() {
 				<form onSubmit={function HandleForm(e) {
 					e.preventDefault();
 
-					setCategory([...category, values]);
-
-					SetValue(initialValues); 
+					if (errors.name || errors.description) {
+						alert('Formulário preenchido incorretamente.');
+					} else {
+						CategoriesRepository.create({
+							name: values.name,
+							link_extra: {
+								description: values.description,
+								url: values.url,
+							},
+							color: values.color,
+						}).then(() => {
+							history.push('/');
+						});
+	
+						setCategory([...category, values]);
+	
+						ClearForm(); 
+					}
 				}}
 				>
 
 					<FormFieldWrapper>
-						<FormField label="Nome da Categoria" type="text" name="name" onChange={OnChangeHandler} />
+						<FormField label="Nome da Categoria" value={values.name} type="text" name="name" onChange={OnChangeHandler} />
+
+						{errors.name && <SpanStyle>{errors.name}</SpanStyle>}
 
 					</FormFieldWrapper>
 
 					<FormFieldWrapper>
-						<FormField label="Descrição da Categoria" type="text" name="description" onChange={OnChangeHandler} />
+						<FormField label="Descrição da Categoria" value={values.description} type="text" name="description" onChange={OnChangeHandler} />
+
+						{errors.description && <SpanStyle>{errors.description}</SpanStyle>}
 
 					</FormFieldWrapper>
 
 					<FormFieldWrapper>
-						<FormField label="Cor da Categoria" type="color" name="color" onChange={OnChangeHandler} />
+						<FormField label="Cor da Categoria" value={values.color} type="color" name="color" onChange={OnChangeHandler} />
+
+					</FormFieldWrapper>
+
+					<FormFieldWrapper>
+						<FormField label="Url da Categoria (Não obrigatório)" value={values.url} type="url" name="url" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
 

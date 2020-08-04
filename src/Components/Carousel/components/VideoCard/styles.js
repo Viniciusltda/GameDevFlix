@@ -13,10 +13,12 @@ export const VideoCardContainer = styled.a`
 	background-size: cover;
 	background-position: center;
 
-	transition: opacity .3s;
+	text-align: center;
+
+	transition: transform .3s;
 
 	&:hover, &:focus{
-		opacity: .5;
+		transform: scale(0.8, 0.8);
 		
 	}
 `;

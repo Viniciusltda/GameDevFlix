@@ -1,6 +1,5 @@
 import Styled from 'styled-components';
 
-
 export const LogoImage = Styled.img`
     max-width: 168px;
 
@@ -17,12 +16,12 @@ export const MenuWrapper = Styled.nav`
     height: 94px;
 
     position: fixed;
-    z-index: 1;
+    z-index: 100;
     top: 0;
     left: 0;
+
     padding-left: 5%;
     padding-right: 5%;
-    
 
     display: flex;
     align-items: center;

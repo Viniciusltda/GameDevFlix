@@ -1,7 +1,7 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 import Menu from '../Menus';
 import Footer from '../Footer';
-import styled from 'styled-components';
 
 const Main = styled.main`
   background-color: var(--black);
@@ -9,23 +9,25 @@ const Main = styled.main`
 
   flex: 1;
 
-  padding-top: 60px;
   padding-left: 5%;
   padding-right: 5%;
 
+  ${({ paddingAll }) => css`
+	padding: 94px 0 0 0;
+  `}
+
 `;
 
-
-function DefaultPage({ children }) {
-  return (
-    <>
-      <Menu />
-        <Main>
-          {children}
-        </Main>
-      <Footer />
-    </>
-  );
+function DefaultPage({ children, paddingAll }) {
+	return (
+		<>
+			<Menu />
+			<Main paddingAll={paddingAll}>
+				{children}
+			</Main>
+			<Footer />
+		</>
+	);
 }
 
 export default DefaultPage;

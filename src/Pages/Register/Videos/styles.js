@@ -52,10 +52,12 @@ export const LinkStyle = Styled.a`
 
     font-weight: bold;
     
-    margin-top: 25px;
+    margin-top: 35px;
     margin-bottom: 15px;
-    margin-left: 15px;
     margin-right: 15px;
+
+    position: relative;
+    bottom: 0;
 
     transition: opacity .3s;
 
@@ -74,6 +76,6 @@ export const SpanStyle = Styled.span`
 
 export const LinkWrapper = Styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
 
 `;

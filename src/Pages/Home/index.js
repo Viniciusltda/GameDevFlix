@@ -1,57 +1,46 @@
-import React from 'react';
-import Styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 
-import Menu from '../../Components/Menus/index.js';
-import dadosIniciais from '../../data/dados_iniciais.json';
 import BannerMain from '../../Components/BannerMain';
 import Carousel from '../../Components/Carousel';
-import Footer from '../../Components/Footer';
-
-
-const AppWrapper = Styled.div`
-  background: var(--grayDark);
-  
-  padding-top: 94px;
-
-  @media(max-width: 800px){
-    padding-top: 40px;
-    
-  }
-	
-`
+import DefaultPage from '../../Components/Layout';
+import CategoriesRepository from '../../repositories/categories';
 
 function Home() {
-  return (
-    <AppWrapper>
-      <Menu/>
+	const [dadosIniciais, setDadosIniciais] = useState([]);
 
-      <BannerMain videoTitle={dadosIniciais.categorias[0].videos[0].titulo}
-        url={dadosIniciais.categorias[0].videos[0].url}
-        videoDescription={"Descubra qual Engine se encaixa melhor nos seus planos."}
+	useEffect(() => {
+		CategoriesRepository.getAllVideos().then((categoriesWithVideos) => {
+			setDadosIniciais(categoriesWithVideos);
+		});
+	}, []);
 
-       />
+	return (
+		<DefaultPage paddingAll={0}>
 
-       <Carousel 
-        ignoreFirstVideo 
-        category={dadosIniciais.categorias[0]}
+			{dadosIniciais.map((category, index) => {
+				if (index === 0) {
+					return (
+						<div key={category.id}>
+							<BannerMain
+								videoTitle={dadosIniciais[0].videos[0].titulo}
+								url={dadosIniciais[0].videos[0].url}
+								videoDescription="Descrubra qual Engine se encaixa melhor nos seus planos."
+							/>
 
-        />
+							<Carousel ignoreFirstVideo category={dadosIniciais[0]} />
 
-        <Carousel category={dadosIniciais.categorias[1]}/>
+						</div>
+					);
+				}
 
-        <Carousel category={dadosIniciais.categorias[2]}/>
+				return (
+					<Carousel key={category.id} category={category} />
 
-        <Carousel category={dadosIniciais.categorias[3]}/>
+				);
+			})}
 
-        <Carousel category={dadosIniciais.categorias[4]}/>
-
-        <Carousel category={dadosIniciais.categorias[5]}/>
-
-        <Footer/>
-            
-    </AppWrapper>
-  );
+		</DefaultPage>
+	);
 }
 
 export default Home;
-

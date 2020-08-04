@@ -1,52 +1,46 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import DefaultPage from '../../../Components/Layout';
 import FormField from '../../../Components/Form';
-import {FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle} from './styles.js';
+import {
+	FormWrapper, TitleWrapper, FormFieldWrapper, ButtonStyle, LinkStyle, 
+} from './styles';
+import useForm from '../../../Hooks/useForm';
 
-function CadastroPokemon(){
+function CadastroPokemon() {
 	const initialValues = {
 		name: 'Torterra',
 		description: 'Pokémon Massa esse.',
 		type: 'Grama',
 	};
 
-	const [values, setValues] = useState(initialValues);
+	const { values, OnChangeHandler, ClearForm } = useForm(initialValues);
 	const [category, setCategory] = useState([]);
 
-	function SetValue(key, value){
-		setValues({
-			...values,
-			[key]: value
-		});
-	}
-
-	function OnChangeHandler(e) {
-		SetValue(e.target.getAttribute('name'), e.target.value);
-
-	}
-
-	return(
+	return (
 		<DefaultPage>
 			<TitleWrapper>
-				<h1>Cadastro do Pokémon: {values.name}</h1>
+				<h1>
+					Cadastro do Pokémon:
+					{values.name}
+				</h1>
 
 			</TitleWrapper>
 
 			<FormWrapper>
 
-				<form onSubmit={function HandleForm(e){
+				<form onSubmit={function HandleForm(e) {
 					e.preventDefault();
 
 					setCategory([
 						...category,
-						values
+						values,
 					]);
 
-					SetValue(initialValues);
-
-				}}>
+					ClearForm();
+				}}
+				>
 
 					<FormFieldWrapper>
 						<FormField label="Nome do Pokémon" value={values.name} type="text" name="name" onChange={OnChangeHandler} />
@@ -54,18 +48,14 @@ function CadastroPokemon(){
 					</FormFieldWrapper>
 
 					<FormFieldWrapper>
-						<FormField label="Descrição do Pokémon" value={values.description} type="text" name="description" onChange={OnChangeHandler}/>
+						<FormField label="Descrição do Pokémon" value={values.description} type="text" name="description" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
-
-
 
 					<FormFieldWrapper>
 						<FormField label="Tipo do Pokémon" value={values.type} type="text" name="type" onChange={OnChangeHandler} />
 
 					</FormFieldWrapper>
-
-
 
 					<ButtonStyle>
 						Cadastrar
@@ -75,13 +65,11 @@ function CadastroPokemon(){
 				</form>
 
 				<ul>
-					{category.map((categories, index) => {
-						return(
-							<li key={`${categories} ${index}`}>
-								{categories.name}
-							</li>
-						);
-					})}
+					{category.map((categories) => (
+						<li key={`${categories.name}`}>
+							{categories.name}
+						</li>
+					))}
 				</ul>
 
 			</FormWrapper>
@@ -89,8 +77,6 @@ function CadastroPokemon(){
 			<LinkStyle as={Link} to="/">
 				Voltar à Home.
 			</LinkStyle>
-			
-
 
 		</DefaultPage>
 	);
